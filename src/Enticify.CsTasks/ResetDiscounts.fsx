@@ -28,7 +28,6 @@ Target "AnnihilateDiscounts" (fun _ ->
     DeleteDiscounts mc 
     PurgeDiscounts purgeToolArgs 
     DeleteExpressions mc 
-    ImportDiscounts discountImportArgs 
 )
 
 Target "ImportTestDiscounts" (fun _ ->
