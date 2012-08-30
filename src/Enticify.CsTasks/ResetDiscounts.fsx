@@ -24,11 +24,18 @@ let discountImportArgs =
         Timeout = maxTimeSpan
     }
 
-Target "ResetDiscounts" (fun _ ->
+Target "AnnihilateDiscounts" (fun _ ->
     DeleteDiscounts mc 
     PurgeDiscounts purgeToolArgs 
     DeleteExpressions mc 
     ImportDiscounts discountImportArgs 
 )
 
-Run "ResetDiscounts"
+Target "ImportTestDiscounts" (fun _ ->
+    ImportDiscounts discountImportArgs 
+)
+
+"AnnihilateDiscounts" 
+    ==> "ImportTestDiscounts"
+
+Run "ImportTestDiscounts"
