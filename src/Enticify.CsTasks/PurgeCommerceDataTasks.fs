@@ -14,12 +14,9 @@ module CsTasks.PurgeCommerceDataTasks
         }
         
     let PurgeDiscounts purgeCommerceDataArgs =
+        let args = sprintf "%s -m -d 0" purgeCommerceDataArgs.SiteName
         let exitCode = 
             ExecProcess (fun psi ->
             psi.FileName <- purgeCommerceDataArgs.ToolPath
-            psi.Arguments <- (sprintf "%s -m -d 0" purgeCommerceDataArgs.SiteName)) purgeCommerceDataArgs.Timeout
+            psi.Arguments <- args) purgeCommerceDataArgs.Timeout
         ()
-    
-
-
-
