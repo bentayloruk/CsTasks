@@ -1,6 +1,6 @@
 # CsTasks
 
-Commerce Server functions for use with the FAKE build system.
+Commerce Server functions for use with the FAKE build system.  Automate tasks like deleting and importing promotions.
 
 Written by [@enticify](http://twitter.com/enticify) and used in the production of [best discount engine for Commerce Server.](http://www.enticify.com/)
 
@@ -26,7 +26,7 @@ None.
 
 ## Screen Shots
 
-
+TODO
 
 ## Release Notes
 
