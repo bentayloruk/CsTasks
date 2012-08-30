@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="MarketingTasks.fs" />
     <Compile Include="PurgeCommerceDataTasks.fs" />
+    <Compile Include="ExportImportPromotionTasks.fs" />
     <None Include="CleanDiscounts.fsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

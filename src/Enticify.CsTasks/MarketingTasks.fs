@@ -6,7 +6,6 @@ module CsTasks.Marketing
     open System.Diagnostics
     open Fake
 
-
     let MarketingContextSingleton siteName =
         let mc = MarketingContext.Create(siteName, null, AuthorizationMode.NoAuthorization)
         fun () -> mc
@@ -23,8 +22,11 @@ module CsTasks.Marketing
             table.AsEnumerable()
             |> Seq.map (fun row -> row.["Id"] :?> int)
         for id in expressionIds do
-            trace (sprintf "Deleting expression %s" (id.ToString()))
-            mc.Expressions.Delete(id)
+            try
+                trace (sprintf "Deleting expression %s" (id.ToString()))
+                mc.Expressions.Delete(id)
+            with
+            | ex -> trace (sprintf "Failed to delete %s.  Exception: %s" (id.ToString()) ex.Message)
         ()
 
     let DeleteDiscounts(marketingContextFactory:(unit->MarketingContext)) =
@@ -40,8 +42,11 @@ module CsTasks.Marketing
             table.AsEnumerable()
             |> Seq.map (fun row -> row.["Id"] :?> int)
         for id in discountIds do
-            trace (sprintf "Deleting %s" (id.ToString()))
-            mc.CampaignItems.Delete(id)
+            try
+                trace (sprintf "Deleting %s" (id.ToString()))
+                mc.CampaignItems.Delete(id)
+            with
+            | ex -> trace (sprintf "Failed to delete %s.  Discount: %s" (id.ToString()) ex.Message)
         trace "Ending DeleteDiscounts"
         ()
         

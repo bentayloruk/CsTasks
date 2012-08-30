@@ -20,9 +20,9 @@ exception ReturnNoneException183c26a427ae489c8fd92ec21a0c9a59
 
 [<assembly: AssemblyTitle ("CsTasks")>]
 
-[<assembly: AssemblyDescription ("FAKE build tasks for Commerce ServerDebug).")>]
+[<assembly: AssemblyDescription ("FAKE build tasks for Commerce ServerRelease).")>]
 
-[<assembly: AssemblyConfiguration ("Debug")>]
+[<assembly: AssemblyConfiguration ("Release")>]
 
 [<assembly: AssemblyCompany ("Shape Factory Limited")>]
 

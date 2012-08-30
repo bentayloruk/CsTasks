@@ -6,17 +6,18 @@ module CsTasks.PurgeCommerceDataTasks
     open System
     open System.Diagnostics
     open Fake
-    //TODO search for tool (grab expandoc code).
-    let toolPath = @"""C:\Program Files (x86)\Microsoft Commerce Server 9.0\Tools\PurgeCommerceData.exe"""
-    let PurgeDiscounts siteName secsTimeout =
-        let psiSetter (psi:ProcessStartInfo) = 
-            psi.FileName <- toolPath
-            psi.Arguments <- (sprintf "%s -m -d 0" siteName)
-        let timeout = TimeSpan(0l,0l,10l)
+
+    type PurgeCommerceDataArgs = {
+        ToolPath : string
+        SiteName : string
+        Timeout : TimeSpan
+        }
+        
+    let PurgeDiscounts purgeCommerceDataArgs =
         let exitCode = 
             ExecProcess (fun psi ->
-            psi.FileName <- toolPath
-            psi.Arguments <- (sprintf "%s -m -d 0" siteName)) timeout
+            psi.FileName <- purgeCommerceDataArgs.ToolPath
+            psi.Arguments <- (sprintf "%s -m -d 0" purgeCommerceDataArgs.SiteName)) purgeCommerceDataArgs.Timeout
         ()
     
 
