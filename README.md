@@ -13,7 +13,7 @@ Written by [@enticify](http://twitter.com/enticify) and used in the production o
 ## Installation
 
 * Install the [FAKE package](http://nuget.org/packages/FAKE) *CsTasks extends FAKE*.
-* Install the CsTasks binaries.  *Source only builds at the moment.*
+* Install the CsTasks binaries.  *You have to build from source at the moment.*
 
 ## Documentation
 
