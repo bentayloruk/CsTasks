@@ -32,7 +32,7 @@ None.
 
 ## Release Notes
 
-* [Version 0.1.3 is up on Nuget](http://nuget.org/packages/CsTasks).  More ctp releases will follow.
+* [Initial release to Nuget.](http://nuget.org/packages/CsTasks).  More ctp releases will follow.
 
 ## License
 
