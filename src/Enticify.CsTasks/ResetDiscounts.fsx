@@ -18,7 +18,6 @@ let purgeToolArgs = {
     ToolPath = @"""C:\Program Files (x86)\Microsoft Commerce Server 9.0\Tools\PurgeCommerceData.exe"""
     SiteName = siteName
     Timeout = maxTimeSpan }
-
 let discountImportArgs = {
         MarketingWebServiceUrl = @"""http://localhost/MarketingWebService/MarketingWebService.asmx"""
         DiscountsPath = @""".\Discount_.xml""" 
@@ -37,6 +36,8 @@ Target "DeleteExpressions" (fun _ ->
 )
 
 Target "ImportTestDiscounts" (fun _ ->
+    //Note:  I exported promotions previously with ExportImportPromotion.exe.  I am using the XML it created.
+    //I will add an ExportPromotions task to CsTasks too.
     ImportDiscounts discountImportArgs 
 )
 
