@@ -4,23 +4,29 @@ module CsTasks.ExportImportPromotionTasks
     open Microsoft.CommerceServer
     open System.Data
     open System
+    open System.IO
+    open System.Reflection
     open System.Diagnostics
     open Fake
 
     type DiscountExportArgs = {
-        ToolPath : string
         MarketingWebServiceUrl : string
         Timeout : TimeSpan 
        }
 
     type DiscountImportArgs = {
         MarketingWebServiceUrl : string
-        ToolPath : string
         DiscountsPath : string
         GlobalExpressionsPath : string
         PromoCodesPath : string
         Timeout : TimeSpan 
        }
+
+    let locateImportExportExe() =
+        let directory =
+            Assembly.GetExecutingAssembly().Location
+            |> Path.GetDirectoryName
+        Path.Combine(directory, "ExportImportPromotion.exe")
 
     //Imports discounts and associated global expressions and promo codes.
     let ImportDiscounts args =
@@ -32,7 +38,7 @@ module CsTasks.ExportImportPromotionTasks
                 args.GlobalExpressionsPath
         let exitCode = 
             ExecProcess (fun psi ->
-                psi.FileName <- args.ToolPath
+                psi.FileName <- locateImportExportExe()
                 psi.Arguments <- formattedArgs) args.Timeout
         ()
 

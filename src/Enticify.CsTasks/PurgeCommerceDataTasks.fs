@@ -12,7 +12,7 @@ module CsTasks.PurgeCommerceDataTasks
         SiteName : string
         Timeout : TimeSpan
         }
-        
+
     let PurgeDiscounts purgeCommerceDataArgs =
         let args = sprintf "%s -m -d 0" purgeCommerceDataArgs.SiteName
         let exitCode = 

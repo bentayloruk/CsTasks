@@ -17,7 +17,6 @@ let purgeToolArgs = {
 
 let discountImportArgs = 
     {   MarketingWebServiceUrl = @"""http://localhost/MarketingWebService/MarketingWebService.asmx"""
-        ToolPath = @"""..\..\tools\ExportImportDiscounts\ExportImportPromotion.exe"""
         DiscountsPath = @""".\Discount_.xml""" 
         GlobalExpressionsPath = @""".\GlobalExpressions_.xml""" 
         PromoCodesPath = @""".\PromoCodes_.xml""" 
