@@ -7,8 +7,8 @@ Written by [@bentayloruk](http://twitter.com/bentayloruk) of [@enticify](http://
 ## Features
 
 * Import discounts, promotion codes and global expressions.
-* Delete all discounts.
-* Purge all discount data.
+* Delete discounts, direct mail and advertisment campaign items.
+* Purge deleted discounts.
 
 ## Installation from Nuget Package Manager Console
 
