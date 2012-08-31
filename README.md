@@ -12,13 +12,13 @@ Written by [@bentayloruk](http://twitter.com/bentayloruk) of [@enticify](http://
 
 ## Installation from Nuget Package Manager Console
 
-*CTP release.  Proceed at your own risk.*
+CsTasks is installed using Nuget.  Everything you need to use CsTasks will be installed (including FAKE).
 
 Use the following Nuget command:  
 
 `install-package CsTasks -pre` 
 
-*The -pre is required as this is a CTP release.*
+*The -pre is required as this is a CTP release.  Proceed at your own risk.*
 
 ## Documentation
 
