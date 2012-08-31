@@ -32,7 +32,7 @@ None.
 
 ## Release Notes
 
-* [Initial release to Nuget.](http://nuget.org/packages/CsTasks).  More ctp releases will follow.
+* [Initial release to Nuget](http://nuget.org/packages/CsTasks).  More ctp releases will follow.
 
 ## License
 
