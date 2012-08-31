@@ -5,7 +5,7 @@ open Fake
 open System.IO
 open System
 
-let version = "0.1.2"
+let version = "0.1.3"
 let buildTypes = ["Debug";"Release"]
 let buildVariations = [""] //No variation for CsTasks.
 let buildOutputPath = @".\build\output"
