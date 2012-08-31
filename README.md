@@ -1,30 +1,36 @@
 # CsTasks
 
-Commerce Server functions for use with the FAKE build system.
+Commerce Server functions for use with the FAKE build system.  Automate tasks like deleting and importing promotions.
 
 Written by [@enticify](http://twitter.com/enticify) and used in the production of [best discount engine for Commerce Server.](http://www.enticify.com/)
 
 ## Features
 
-TODO 
-
-## Documentation
-
-TODO
+* Import discounts, promotion codes and global expressions.
+* Delete all discounts.
+* Purge all discount data.
 
 ## Installation
 
-TODO
+* Install the [FAKE package](http://nuget.org/packages/FAKE) *CsTasks extends FAKE*.
+* Install the CsTasks binaries.  *You have to build from source at the moment.*
 
+## Documentation
+
+* Create an `.fsx` script that references the FAKE and CsTasks assemblies.  [Example](https://github.com/enticify/CsTasks/blob/master/src/Enticify.CsTasks/ResetDiscounts.fsx#L1)
+* Use some of the CsTask functions in your FAKE targets.  [Example]([Example](https://github.com/enticify/CsTasks/blob/master/src/Enticify.CsTasks/ResetDiscounts.fsx)
 
 ## Known Issues
 
-TODO
+None.
 
 ## Screen Shots
-## Release Notes
 
 TODO
+
+## Release Notes
+
+*No release yet.*
 
 ## License
 
