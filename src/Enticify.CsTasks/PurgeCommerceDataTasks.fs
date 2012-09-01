@@ -8,6 +8,7 @@ module CsTasks.PurgeCommerceDataTasks
     open Fake
 
     let purgeCommerceDataExePath = FindInProgramFiles "PurgeCommerceData.exe" 
+
     //TODO mark those that must be set with an attribute?
     type PurgeCommerceDataArgs =
         { ToolPath : string
@@ -21,6 +22,7 @@ module CsTasks.PurgeCommerceDataTasks
 
     let PurgeDiscounts argsAction =
         let args = DefaultPurgeCommerceDataArgs() |> argsAction
+        if String.IsNullOrEmpty(args.SiteName) then failwith "SiteName is null or empty."
         let purgeToolArgs = sprintf "%s -m -d 0" args.SiteName
         let exitCode = 
             ExecProcess (fun psi ->
