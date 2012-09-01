@@ -7,16 +7,23 @@ module CsTasks.PurgeCommerceDataTasks
     open System.Diagnostics
     open Fake
 
-    type PurgeCommerceDataArgs = {
-        ToolPath : string
-        SiteName : string
-        Timeout : TimeSpan
-        }
+    let purgeCommerceDataExePath = FindInProgramFiles "PurgeCommerceData.exe" 
+    //TODO mark those that must be set with an attribute?
+    type PurgeCommerceDataArgs =
+        { ToolPath : string
+          SiteName : string
+          Timeout : TimeSpan }
 
-    let PurgeDiscounts purgeCommerceDataArgs =
-        let args = sprintf "%s -m -d 0" purgeCommerceDataArgs.SiteName
+    let DefaultPurgeCommerceDataArgs() =
+        { ToolPath = purgeCommerceDataExePath 
+          SiteName = "" 
+          Timeout = MaxTimeSpan() }
+
+    let PurgeDiscounts argsAction =
+        let args = DefaultPurgeCommerceDataArgs() |> argsAction
+        let purgeToolArgs = sprintf "%s -m -d 0" args.SiteName
         let exitCode = 
             ExecProcess (fun psi ->
-            psi.FileName <- purgeCommerceDataArgs.ToolPath
-            psi.Arguments <- args) purgeCommerceDataArgs.Timeout
+            psi.FileName <- args.ToolPath
+            psi.Arguments <- purgeToolArgs) args.Timeout
         ()

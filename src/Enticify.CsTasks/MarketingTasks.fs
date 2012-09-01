@@ -5,7 +5,7 @@ module CsTasks.Marketing
     open System.Data
     open System.Diagnostics
     open Fake
-
+          
     let MarketingContextSingleton siteName =
         let mc = MarketingContext.Create(siteName, null, AuthorizationMode.NoAuthorization)
         fun () -> mc

@@ -2,47 +2,48 @@
 #r @".\src\packages\FAKE.1.64.8\tools\FakeLib.dll"
 #r @".\src\packages\CsTasks.0.1.1-ctp\tools\Enticify.CsTasks.dll"
 
-//Open the namespaces we need
 open CsTasks
 open Fake
 open System
 
 //Setup the Commerce Server site access details.
 let siteName = "StarterSite"
-let mc = MarketingContextSingleton siteName 
+let marketingWebServiceUrl = @"""http://localhost/MarketingWebService/MarketingWebService.asmx""" 
+let marketingContext = MarketingContextSingleton siteName
 
-//Set up the other details we need.
-let maxTimeSpan = System.TimeSpan.MaxValue
-
-let purgeToolArgs = {
-    ToolPath = @"""C:\Program Files (x86)\Microsoft Commerce Server 9.0\Tools\PurgeCommerceData.exe"""
-    SiteName = siteName
-    Timeout = maxTimeSpan }
-let discountImportArgs = {
-        MarketingWebServiceUrl = @"""http://localhost/MarketingWebService/MarketingWebService.asmx"""
-        DiscountsPath = @""".\Discount_.xml""" 
-        GlobalExpressionsPath = @""".\GlobalExpressions_.xml""" 
-        PromoCodesPath = @""".\PromoCodes_.xml""" 
-        Timeout = maxTimeSpan }
-
-//Set up our FAKE Targets utilising the CsTasks functions.
-Target "DeleteAndPurgeDiscounts" (fun _ ->
-    DeleteDiscounts mc 
-    PurgeDiscounts purgeToolArgs 
+Target "ExportDiscountsToTemp" (fun _ ->
+    ExportDiscounts (fun defaultArgs ->
+        { defaultArgs with
+              DiscountExportArgs.MarketingWebServiceUrl = marketingWebServiceUrl
+              ExportDirectoryPath = @"c:\temp" })
 )
 
-Target "DeleteExpressions" (fun _ ->
-    DeleteExpressions mc 
+Target "DelAndPurgeDiscounts" (fun _ ->
+    DeleteDiscounts marketingContext 
+    PurgeDiscounts (fun defaultArgs -> { defaultArgs with SiteName = siteName })
+    DeleteExpressions marketingContext 
+)
+
+Target "DelExpressions" (fun _ ->
+    DeleteExpressions marketingContext 
+)
+
+Target "DelDirectMail" (fun _ ->
+    DeleteDirectMail marketingContext 
+)
+
+Target "DelAds" (fun _ ->
+    DeleteAdvertisments marketingContext
 )
 
 Target "ImportTestDiscounts" (fun _ ->
-    //Note:  I exported promotions previously with ExportImportPromotion.exe.  I am using the XML it created.
-    //I will add an ExportPromotions task to CsTasks too.
-    ImportDiscounts discountImportArgs 
+    ImportDiscounts (fun defaultArgs -> { defaultArgs with DiscountImportArgs.MarketingWebServiceUrl = marketingWebServiceUrl})
 )
 
-//Set up the Target dependency change (this is a FAKE thing).
-"DeleteAndPurgeDiscounts" ==> "DeleteExpressions" ==> "ImportTestDiscounts"
+"DelAds" 
+    ==> "ExportDiscountsToTemp"
+    ==> "DelAndPurgeDiscounts"
+    ==> "DelDirectMail"
+    ==> "ImportTestDiscounts"
 
-//Run the Targets.  ImportTestDiscounts depends on the others so they will run too.
 Run "ImportTestDiscounts"
