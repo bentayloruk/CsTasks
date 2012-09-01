@@ -6,7 +6,7 @@ Simple and time-saving Commerce Server task automation.  Do things like deleting
 
 Written by [@bentayloruk](http://twitter.com/bentayloruk) of [@enticify](http://twitter.com/enticify) and used in the production of [best discount engine for Commerce Server.](http://www.enticify.com/)
 
-Get your name here.  [Fork and contribute](https://github.com/enticify/CsTasks/fork)!  *Or [just watch](https://github.com/enticify/CsTasks/star) :)*
+Get your name here.  Fork and contribute!  *Or show some love and Star us.*
 
 ## Features
 
@@ -37,7 +37,7 @@ To install CsTasks run the following command in the [Nuget Package Manager Conso
 CsTasks uses the following tools and APIs.  
 
 * [Export/Import Discounts Tool](http://archive.msdn.microsoft.com/ExportImportDiscount).  Included in the CsTasks package tools folder.  No installation required.
-* [PurgeCommerceData](http://msdn.microsoft.com/en-us/library/cc515165(v=cs.70).aspx#PurgeCommerceData).  Part of the Commerce Server installation.
+* [PurgeCommerceData](http://msdn.microsoft.com/en-us/library/cc515165.aspx#PurgeCommerceData).  Part of the Commerce Server installation.
 
 ## Known Issues
 
