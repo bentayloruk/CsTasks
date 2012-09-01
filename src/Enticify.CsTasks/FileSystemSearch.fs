@@ -23,8 +23,18 @@ let SearchFolder patterns path option =
     with
     | ex -> Seq.empty
 
+///Version of code from http://stackoverflow.com/a/194223/418492
+let ProgramFilesx86() =
+    if 8 = IntPtr.Size || not (String.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432"))) then
+        Environment.GetEnvironmentVariable("ProgramFiles(x86)");
+    else
+        Environment.GetEnvironmentVariable("ProgramFiles");
+
 let FindInProgramFiles fileName =
-    [ Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles); ]
+    //Search x64 then x86.
+    [ Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles); 
+      ProgramFilesx86(); ]
+    |> Seq.distinct//in case on x86 when both will be the same.
     |> Seq.map (fun path -> SearchFolder [fileName] path SearchAllBelow) 
     |> Seq.concat 
     |> List.ofSeq 
