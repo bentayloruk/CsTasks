@@ -1,6 +1,6 @@
 # CsTasks
 
-Simple and time-saving Commerce Server task automation.  Do things like deleting, purging and importing promotions.  CsTasks is an easy to use set of functions integrated with the power of the FAKE build system.  
+Simple and time-saving Commerce Server task automation library.  Do things like deleting, purging and importing promotions.  CsTasks provides a consistent .NET API around existing tools and APIs.  
 
 ## Authors
 
@@ -12,7 +12,7 @@ Get your name here.  Fork and contribute!  *Or show some love and Star us.*
 
 * Import discounts, promotion codes and global expressions.
 * Delete discounts, direct mail and advertisment campaign items.
-* Purge deleted discounts.
+* Purge marketing data, baskets, purchase orders and catalog data.
 
 ## Pre-Requisites
 
@@ -28,9 +28,9 @@ To install CsTasks run the following command in the [Nuget Package Manager Conso
 
 ## Documentation
 
-* Create an `.fsx` script that references the FAKE and CsTasks assemblies (located in the nuget installed package folders).  
-* Use some of the CsTask functions in your FAKE targets.
-* Look at an [example of FAKE with CsTasks usage](https://github.com/enticify/CsTasks/blob/master/src/Enticify.CsTasks/ResetDiscounts.fsx)
+CsTasks is written in F# and we use it from `.fsx` build scripts.  However, it is a normal .NET assembly so you can use it from any .NET language.  Look at an [example of FAKE with CsTasks usage](https://github.com/enticify/CsTasks/blob/master/src/Enticify.CsTasks/ResetDiscounts.fsx)
+
+*More documentation to come.  We are in pre-release mode so you'll have to find your own way.*
 
 ## Additional Information
 
@@ -45,7 +45,10 @@ None.  [Raise one](https://github.com/enticify/CsTasks/issues).
 
 ## Release Notes
 
-* [Initial release to Nuget](http://nuget.org/packages/CsTasks).  More ctp releases will follow.
+### 0.1.4
+
+* Removed dependency on FAKE.
+* Breaking:  Replaced PurgeCommerceDataTool functions with PurgeCommerceDataTool class.
 
 ## License
 
