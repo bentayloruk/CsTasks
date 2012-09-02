@@ -21,7 +21,7 @@ Target "ExportDiscountsToTemp" (fun _ ->
 
 Target "DelAndPurgeDiscounts" (fun _ ->
     DeleteDiscounts marketingContext 
-    starterSitePurgeTool.PurgeAllMarketingData()
+    let retCode = starterSitePurgeTool.PurgeAllMarketingData()
     DeleteExpressions marketingContext 
 )
 
