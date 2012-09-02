@@ -1,6 +1,6 @@
 # CsTasks
 
-Simple and time-saving Commerce Server task automation library.  Do things like deleting, purging and importing promotions.  CsTasks is an easy to use set of functions integrated with the power of the FAKE build system.  
+Simple and time-saving Commerce Server task automation library.  Do things like deleting, purging and importing promotions.  CsTasks provides a consistent .NET API around existing tools and APIs.  
 
 ## Authors
 
