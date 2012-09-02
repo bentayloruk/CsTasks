@@ -4,7 +4,6 @@ module CsTasks.Marketing
     open Microsoft.CommerceServer
     open System.Data
     open System.Diagnostics
-    open Fake
           
     let MarketingContextSingleton siteName =
         let mc = MarketingContext.Create(siteName, null, AuthorizationMode.NoAuthorization)
@@ -54,7 +53,7 @@ module CsTasks.Marketing
         DeleteCampaignItems marketingContextFactory CampaignItemType.Discount
         ()
 
-    let DeleteAdvertisments(marketingContextFactory:(unit->MarketingContext)) =
+    let DeleteAdvertisements(marketingContextFactory:(unit->MarketingContext)) =
         DeleteCampaignItems marketingContextFactory CampaignItemType.Advertisement
         ()
 

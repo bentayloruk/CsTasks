@@ -10,6 +10,7 @@ open System
 let siteName = "StarterSite"
 let marketingWebServiceUrl = @"""http://localhost/MarketingWebService/MarketingWebService.asmx""" 
 let marketingContext = MarketingContextSingleton siteName
+let starterSitePurgeTool = PurgeCommerceDataTool(siteName)
 
 Target "ExportDiscountsToTemp" (fun _ ->
     ExportDiscounts (fun defaultArgs ->
@@ -20,7 +21,7 @@ Target "ExportDiscountsToTemp" (fun _ ->
 
 Target "DelAndPurgeDiscounts" (fun _ ->
     DeleteDiscounts marketingContext 
-    PurgeDiscounts (fun defaultArgs -> { defaultArgs with SiteName = siteName })
+    starterSitePurgeTool.PurgeAllMarketingData()
     DeleteExpressions marketingContext 
 )
 

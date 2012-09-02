@@ -5,8 +5,9 @@ open Fake
 open System.IO
 open System
 
-let version = "0.1.3"
+let version = "0.1.4"
 let buildTypes = ["Debug";"Release"]
+let enticifyDependencies = []
 let buildVariations = [""] //No variation for CsTasks.
 let buildOutputPath = @".\build\output"
 let releaseOutputPath = @".\build\dist"
@@ -95,7 +96,7 @@ Target "Nuget" (fun _ ->
             Project = "CsTasks"
             Version = version
             //ProjectFile = @".\src\Enticify.CsTasks\Enticify.CsTasks.fsproj"
-            Dependencies = [("FAKE", "1.64.8")]
+            Dependencies = enticifyDependencies 
             Description = "FAKE tasks for Commerce Server"
             OutputPath = nugetOutputPath
             AccessKey = getBuildParamOrDefault "enticifynugetkey" ""

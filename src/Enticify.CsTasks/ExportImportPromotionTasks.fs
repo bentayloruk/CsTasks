@@ -6,7 +6,6 @@ module CsTasks.ExportImportPromotionTasks
     open System
     open System.IO
     open System.Diagnostics
-    open Fake
 
     let exportImportToolPath = CsTasksToolPathFromFileName "ExportImportPromotion.exe" 
     let CurrentDirectory () = Directory.GetCurrentDirectory()

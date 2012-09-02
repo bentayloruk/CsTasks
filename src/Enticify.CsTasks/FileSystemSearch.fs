@@ -39,8 +39,8 @@ let FindInProgramFiles fileName =
     |> Seq.concat 
     |> List.ofSeq 
     |> function 
-        | [] -> "" 
-        | h::_ -> h//TODO decide what happens if more than one hit.
+        | [] -> None 
+        | h::_ -> Some(h)//TODO decide what happens if more than one hit.
 
 let FindInExecutingAssemglyLocation fileName =
     let directory =
