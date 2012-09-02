@@ -48,7 +48,7 @@ None.  [Raise one](https://github.com/enticify/CsTasks/issues).
 ### 0.1.4
 
 * Removed dependency on FAKE.
-* Breaking:  Replaced PurgeCommerceDataTool functions with PurgeCommerceDataTool a class.
+* Breaking:  Replaced PurgeCommerceDataTool functions with PurgeCommerceDataTool class.
 
 ## License
 
