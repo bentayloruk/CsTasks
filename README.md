@@ -12,7 +12,7 @@ Get your name here.  Fork and contribute!  *Or show some love and Star us.*
 
 * Import discounts, promotion codes and global expressions.
 * Delete discounts, direct mail and advertisment campaign items.
-* Purge deleted discounts.
+* Purge marketing data, baskets, purchase orders and catalog data.
 
 ## Pre-Requisites
 
