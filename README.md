@@ -59,7 +59,7 @@ The code is written as an F# script:
 
 ## Installation
 
-To install CsTasks run the following command in the [Nuget Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console)
+To install [CsTasks from Nuget.org](https://nuget.org/packages/CsTasks/) run the following command in the Nuget Package Manager Console.
 
 `PM> install-package CsTasks -pre`
  
