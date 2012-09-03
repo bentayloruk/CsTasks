@@ -14,6 +14,45 @@ Get your name here.  Fork and contribute!  *Or show some love and Star us.*
 * Delete discounts, direct mail and advertisment campaign items.
 * Purge marketing data, baskets, purchase orders and catalog data.
 
+## Example - Import Promotions
+
+This example does the following:
+
+- Exports existing discounts to the Temp folder.
+- Deletes all the discounts.
+- Purges the deleted discounts.
+- Deletes all the expressions.
+- Imports discounts, expressions and promo codes from XML.
+
+The code is written as an F# script:
+	
+	//Reference the CsTasks assembly and open the namespaces we use.
+	#r @"src\packages\CsTasks.0.1.4-ctp\tools\Enticify.CsTasks.dll"
+	open CsTasks
+	open System.IO
+	
+	//Setup the Commerce Server site access details.
+	let siteName = "StarterSite"
+	let marketingWebServiceUrl = @"""http://localhost/MarketingWebService/MarketingWebService.asmx""" 
+	let marketingContext = MarketingContextSingleton siteName
+	let tempPath = Path.GetTempPath()
+	
+	//Export current discounts to Temp (just in case).
+	ExportDiscounts (fun defaultArgs ->
+	    { defaultArgs with
+	        DiscountExportArgs.MarketingWebServiceUrl = marketingWebServiceUrl
+	        ExportDirectoryPath = tempPath })
+	
+	//Delete and purge the discounts.
+	DeleteDiscounts marketingContext 
+	let retCode = PurgeCommerceDataTool(siteName).PurgeAllMarketingData()
+	DeleteExpressions marketingContext 
+	
+	//Do the discount import.
+	ImportDiscounts (fun defaultArgs -> 
+		{ defaultArgs with 
+			DiscountImportArgs.MarketingWebServiceUrl = marketingWebServiceUrl})
+
 ## Pre-Requisites
 
 * Microsoft Commerce Server 2007 or Microsoft/Ascentium Commerce Server 2009.
