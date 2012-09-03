@@ -14,7 +14,7 @@ Get your name here.  Fork and contribute!  *Or show some love and Star us.*
 * Delete discounts, direct mail and advertisment campaign items.
 * Purge marketing data, baskets, purchase orders and catalog data.
 
-## Example - Import Promotions
+## Example - Delete, Purge and Import Discounts
 
 This example does the following:
 
