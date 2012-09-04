@@ -16,7 +16,8 @@ Simple and time-saving Commerce Server task automation library.  Do things like 
 
 ## Authors
 
-Written by [@bentayloruk](http://twitter.com/bentayloruk) for use in building [Enticify](http://www.enticify.com/) (discount engine for Commerce Server).
+* CsTasks written by [@bentayloruk](http://twitter.com/bentayloruk) for use in building [Enticify](http://www.enticify.com/) (discount engine for Commerce Server).
+* Included [ExportImportPromotion.exe tool](http://archive.msdn.microsoft.com/ExportImportDiscount) written by [ccbeloy](http://archive.msdn.microsoft.com/UserAccount/UserProfile.aspx?UserName=ccbeloy)
 
 Get your name here too.  Fork and contribute!
 
