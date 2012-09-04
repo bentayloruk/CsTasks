@@ -2,11 +2,23 @@
 
 Simple and time-saving Commerce Server task automation library.  Do things like deleting, purging and importing promotions.  CsTasks provides a consistent .NET API around existing tools and APIs.  
 
+## Aims
+
+* Collect useful Commerce Server tools in a single Nuget package (licenses permitting).
+    * Consistent, single location makes it easier to share scripts.
+    * No need to add tools to source control (as can use Nuget package restore).
+    * Get new features and fixes without effort!
+* Provide common administration tasks via a simple, easy to use .NET API.
+    * Probably safer than hacking command line scripts.
+    * Enable script sharing and re-use.
+* Support scripting from F# and Powershell.
+    * Integrate tasks into build and environment scripts.
+
 ## Authors
 
-Written by [@bentayloruk](http://twitter.com/bentayloruk) of [@enticify](http://twitter.com/enticify) and used in the production of [best discount engine for Commerce Server.](http://www.enticify.com/)
+Written by [@bentayloruk](http://twitter.com/bentayloruk) for use in building [Enticify](http://www.enticify.com/) (discount engine for Commerce Server).
 
-Get your name here.  Fork and contribute!  *Or show some love and Star us.*
+Get your name here too.  Fork and contribute!
 
 ## Features
 
