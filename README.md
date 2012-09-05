@@ -39,33 +39,38 @@ This example does the following:
 
 The code is written as an F# script:
 	
-	//Reference the CsTasks assembly and open the namespaces we use.
-	#r @"src\packages\CsTasks.0.1.4-ctp\tools\Enticify.CsTasks.dll"
 	open CsTasks
 	open System.IO
 	
-	//Setup the Commerce Server site access details.
+	//Setup our site environment.
 	let siteName = "StarterSite"
 	let marketingWebServiceUrl = @"""http://localhost/MarketingWebService/MarketingWebService.asmx""" 
-	let marketingContext = MarketingContextSingleton siteName
 	let tempPath = Path.GetTempPath()
+	let purgeTool = PurgeCommerceDataTool(siteName)
+	let marketingDataStore = MarketingDataStore(siteName)
 	
-	//Export current discounts to Temp (just in case).
+	//Do a safety export to Temp (using an CsTasks F# function).
 	ExportDiscounts (fun defaultArgs ->
 	    { defaultArgs with
 	        DiscountExportArgs.MarketingWebServiceUrl = marketingWebServiceUrl
 	        ExportDirectoryPath = tempPath })
 	
-	//Delete and purge the discounts.
-	DeleteDiscounts marketingContext 
-	let retCode = PurgeCommerceDataTool(siteName).PurgeAllMarketingData()
-	DeleteExpressions marketingContext 
+	//Delete all campaign items.
+	marketingDataStore.DeleteAllCampaignItems()
+	
+	//Purge marketing data (so we can delete expressions)
+	let retCode = purgeTool.PurgeAllMarketingData()
+	
+	//Delete expressions.
+	marketingDataStore.DeleteAllExpressions()
+	
+	//Reseed all Ids so our imported discounts get the same IDs each time.
+	marketingDataStore.ReseedCampaignItemIds(0)
+	marketingDataStore.ReseedExpressionIds(0)
 	
 	//Do the discount import.
-	ImportDiscounts (fun defaultArgs -> 
-		{ defaultArgs with 
-			DiscountImportArgs.MarketingWebServiceUrl = marketingWebServiceUrl})
-
+	ImportDiscounts (fun defaultArgs -> { defaultArgs with DiscountImportArgs.MarketingWebServiceUrl = marketingWebServiceUrl})
+	
 ## Pre-Requisites
 
 * Microsoft Commerce Server 2007 or Microsoft/Ascentium Commerce Server 2009.
@@ -80,7 +85,7 @@ To install [CsTasks from Nuget.org](https://nuget.org/packages/CsTasks/) run the
 
 ## Documentation
 
-CsTasks is written in F# and we use it from `.fsx` build scripts.  However, it is a normal .NET assembly so you can use it from any .NET language.  Look at an [example of FAKE with CsTasks usage](https://github.com/enticify/CsTasks/blob/master/src/Enticify.CsTasks/ResetDiscounts.fsx)
+CsTasks is written in F# and we use it from `.fsx` build scripts.  However, it is a normal .NET assembly so you can use it from any .NET language.
 
 *More documentation to come.  We are in pre-release mode so you'll have to find your own way.*
 
