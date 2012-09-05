@@ -38,6 +38,7 @@
   <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets" Condition=" Exists('$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets')" />
   <ItemGroup>
     <Compile Include="Environment.fs" />
+    <Compile Include="Sql.fs" />
     <Compile Include="FileSystemSearch.fs" />
     <Compile Include="Common.fs" />
     <Compile Include="MarketingTasks.fs" />
@@ -51,6 +52,9 @@
     </Reference>
     <Reference Include="Microsoft.CommerceServer.CrossTierTypes, Version=6.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.CommerceServer.Marketing.CrossTierTypes, Version=6.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.CommerceServer.Shared">
+      <HintPath>..\..\..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.CommerceServer.Shared\6.0.1.0__31bf3856ad364e35\Microsoft.CommerceServer.Shared.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />

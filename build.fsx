@@ -5,7 +5,7 @@ open Fake
 open System.IO
 open System
 
-let version = "0.1.4"
+let version = "0.1.5"
 let buildTypes = ["Debug";"Release"]
 let enticifyDependencies = []
 let buildVariations = [""] //No variation for CsTasks.

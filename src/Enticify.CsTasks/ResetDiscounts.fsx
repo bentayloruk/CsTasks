@@ -3,48 +3,25 @@
 #r @".\src\packages\CsTasks.0.1.1-ctp\tools\Enticify.CsTasks.dll"
 
 open CsTasks
-open Fake
-open System
+open System.IO
 
 //Setup the Commerce Server site access details.
 let siteName = "StarterSite"
 let marketingWebServiceUrl = @"""http://localhost/MarketingWebService/MarketingWebService.asmx""" 
-let marketingContext = MarketingContextSingleton siteName
-let starterSitePurgeTool = PurgeCommerceDataTool(siteName)
+let tempPath = Path.GetTempPath()
+let purgeTool = PurgeCommerceDataTool(siteName)
+let marketingTool = CampaignItemDestroyer(siteName)
 
-Target "ExportDiscountsToTemp" (fun _ ->
-    ExportDiscounts (fun defaultArgs ->
-        { defaultArgs with
-              DiscountExportArgs.MarketingWebServiceUrl = marketingWebServiceUrl
-              ExportDirectoryPath = @"c:\temp" })
-)
+//Export current to Temp, just in case.
+ExportDiscounts (fun defaultArgs ->
+    { defaultArgs with
+        DiscountExportArgs.MarketingWebServiceUrl = marketingWebServiceUrl
+        ExportDirectoryPath = tempPath })
 
-Target "DelAndPurgeDiscounts" (fun _ ->
-    DeleteDiscounts marketingContext 
-    let retCode = starterSitePurgeTool.PurgeAllMarketingData()
-    DeleteExpressions marketingContext 
-)
+//Delete and purge the discounts.
+marketingTool.DeleteAllCampaignItems(0)
+let retCode = purgeTool.PurgeAllMarketingData()
+marketingTool.DeleteAllExpressions(0)
 
-Target "DelExpressions" (fun _ ->
-    DeleteExpressions marketingContext 
-)
-
-Target "DelDirectMail" (fun _ ->
-    DeleteDirectMail marketingContext 
-)
-
-Target "DelAds" (fun _ ->
-    DeleteAdvertisments marketingContext
-)
-
-Target "ImportTestDiscounts" (fun _ ->
-    ImportDiscounts (fun defaultArgs -> { defaultArgs with DiscountImportArgs.MarketingWebServiceUrl = marketingWebServiceUrl})
-)
-
-"DelAds" 
-    ==> "ExportDiscountsToTemp"
-    ==> "DelAndPurgeDiscounts"
-    ==> "DelDirectMail"
-    ==> "ImportTestDiscounts"
-
-Run "ImportTestDiscounts"
+//Do the discount import.
+ImportDiscounts (fun defaultArgs -> { defaultArgs with DiscountImportArgs.MarketingWebServiceUrl = marketingWebServiceUrl})
