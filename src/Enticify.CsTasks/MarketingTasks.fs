@@ -15,7 +15,7 @@ module CsTasks.Marketing
         let mc = MarketingContext.Create(siteName, null, AuthorizationMode.NoAuthorization)
         fun () -> mc
 
-    type CampaignItemDestroyer (siteName) =
+    type MarketingDataStore (siteName) =
         //Not much point taking the factory if only call it once, but not sure about usage yet.
         let mc = (MarketingContextFactory siteName)()
         let connectionString =
