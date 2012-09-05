@@ -2,6 +2,8 @@
 
 Simple and time-saving Commerce Server task automation library.  Do things like deleting, purging and importing promotions.  CsTasks provides a consistent .NET API around existing tools and APIs.  
 
+*Important:  This project is in the early CTP phase.  Use it at your own risk.*
+
 ## Aims
 
 * Collect useful Commerce Server tools in a single Nuget package (licenses permitting).
