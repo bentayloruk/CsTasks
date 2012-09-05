@@ -6,6 +6,7 @@ open System.IO
 open System
 
 let version = "0.1.5"
+let packageDesc = "Simple and time-saving Microsoft/Ascentium Commerce Server task automation library."
 let buildTypes = ["Debug";"Release"]
 let enticifyDependencies = []
 let buildVariations = [""] //No variation for CsTasks.
@@ -97,7 +98,7 @@ Target "Nuget" (fun _ ->
             Version = version
             //ProjectFile = @".\src\Enticify.CsTasks\Enticify.CsTasks.fsproj"
             Dependencies = enticifyDependencies 
-            Description = "FAKE tasks for Commerce Server"
+            Description = packageDesc 
             OutputPath = nugetOutputPath
             AccessKey = getBuildParamOrDefault "enticifynugetkey" ""
             Publish = false }) nuspecFileName

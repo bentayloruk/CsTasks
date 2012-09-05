@@ -35,6 +35,7 @@ This example does the following:
 - Deletes all the discounts.
 - Purges the deleted discounts.
 - Deletes all the expressions.
+- Reseeds expression and campaign item ids.
 - Imports discounts, expressions and promo codes from XML.
 
 The code is written as an F# script:
@@ -101,6 +102,11 @@ CsTasks uses the following tools and APIs.
 None.  [Raise one](https://github.com/enticify/CsTasks/issues).
 
 ## Release Notes
+
+### 0.1.5
+
+* Breaking change:  Rolled marketing functions into MarketingDataStore class.  Should be easier to use for most.
+* New:  Added reseeding for expressions and campaign items.
 
 ### 0.1.4
 
