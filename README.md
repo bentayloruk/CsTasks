@@ -82,10 +82,8 @@ The code is written as an F# script:
 
 To install [CsTasks from Nuget.org](https://nuget.org/packages/CsTasks/) run the following command in the Nuget Package Manager Console.
 
-`PM> install-package CsTasks -pre`
+`PM> install-package CsTasks`
  
-*The `-pre` option is required as CsTasks is only available as a [pre-release package](http://nuget.codeplex.com/wikipage?title=Pre-Release%20Packages) at the moment.*
-
 ## Documentation
 
 CsTasks is written in F# and we use it from `.fsx` build scripts.  However, it is a normal .NET assembly so you can use it from any .NET language.
