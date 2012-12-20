@@ -5,7 +5,7 @@ open Fake
 open System.IO
 open System
 
-let version = "0.1.5"
+let version = "0.1.6"
 let packageDesc = "Simple and time-saving Microsoft/Ascentium Commerce Server task automation library."
 let buildTypes = ["Debug";"Release"]
 let enticifyDependencies = []

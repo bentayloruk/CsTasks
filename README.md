@@ -105,6 +105,11 @@ None.  [Raise one](https://github.com/enticify/CsTasks/issues).
 
 ## Release Notes
 
+### 0.1.6
+
+* Removed CTP extension.  No longer a PRE package.
+* Added ReseedCampaignIds to MarketingDataSource.
+
 ### 0.1.5
 
 * Breaking change:  Rolled marketing functions into MarketingDataStore class.  Should be easier to use for most.

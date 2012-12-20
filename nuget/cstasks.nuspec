@@ -3,7 +3,7 @@
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <description>@description@</description>
     <id>@project@</id>
-    <version>@build.number@-ctp</version>
+    <version>@build.number@</version>
     <authors>@authors@</authors>
 	<iconUrl>https://raw.github.com/enticify/CsTasks/master/assets/enticify-32.png</iconUrl>
     <language>en-US</language>
