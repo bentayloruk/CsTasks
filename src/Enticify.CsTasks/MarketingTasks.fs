@@ -18,10 +18,12 @@ module CsTasks.Marketing
     type MarketingDataStore (siteName) =
         //Not much point taking the factory if only call it once, but not sure about usage yet.
         let mc = (MarketingContextFactory siteName)()
+
         let connectionString =
             let siteResCollection = CommerceResourceCollection(siteName)
             let mr = siteResCollection.Item("Marketing")
             StripProvider (mr.["connstr_db_marketing"].ToString())
+
         let ReSeed tableName seed =
             trace (sprintf "Before seed %s" tableName)
             let sql = new SqlHelper (connectionString)
@@ -29,6 +31,7 @@ module CsTasks.Marketing
             sql.Execute [] exec 
             trace (sprintf "After seed %s" tableName)
             ()
+
         let DeleteItems description (searcher:(SearchOptions->DataSet)) deleter = 
             trace (sprintf "Before delete %s." description)
             let itemIds = 
@@ -44,6 +47,7 @@ module CsTasks.Marketing
                 with
                 | ex -> trace (sprintf "Failed to delete %s with Id %s.  Exception: %s" description (id.ToString()) ex.Message)
             trace (sprintf "After delete %s." description)
+
         member x.DeleteAllExpressions() =
             let description = "Expression"
             let searcher (so:SearchOptions) = 
@@ -54,6 +58,7 @@ module CsTasks.Marketing
             let deleter id = mc.Expressions.Delete(id)
             DeleteItems description searcher deleter 
             ()
+
         member x.DeleteCampaignItems (ciType:CampaignItemType) = 
             let description = ciType.ToString() 
             let searcher (so:SearchOptions) = 
@@ -64,6 +69,17 @@ module CsTasks.Marketing
             let deleter id = mc.CampaignItems.Delete(id)
             DeleteItems description searcher deleter 
             ()
+
+        member x.DeleteAllPromoCodeDefinitions() =
+            let searcher (so:SearchOptions) =
+                let clause = 
+                    let scf = mc.PromoCodeDefinitions.GetSearchClauseFactory();
+                    scf.CreateClause()
+                mc.PromoCodeDefinitions.Search(clause, so)
+            let deleter id = mc.PromoCodeDefinitions.Delete(id)
+            DeleteItems "PromoCodeDefinitions" searcher deleter
+            ()
+
         member x.DeleteAllDiscounts() = x.DeleteCampaignItems CampaignItemType.Discount
         member x.DeleteAllAds() = x.DeleteCampaignItems CampaignItemType.Advertisement
         member x.DeleteAllDirectMail() = x.DeleteCampaignItems CampaignItemType.DirectMail
@@ -71,6 +87,7 @@ module CsTasks.Marketing
         member x.ReseedCampaignIds seed = ReSeed "mktg_campaign" seed
         member x.ReseedCampaignItemIds seed = ReSeed "mktg_campaign_item" seed
         member x.ReseedExpressionIds seed = ReSeed "mktg_expression" seed
+
         //Deletes all campaign items, then the campaigns.
         //REMOVED until we can backup and restore these.
 //        member x.DeleteAllCampaigns() = 

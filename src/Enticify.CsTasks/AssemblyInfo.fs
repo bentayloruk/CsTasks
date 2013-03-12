@@ -28,11 +28,11 @@ exception ReturnNoneException183c26a427ae489c8fd92ec21a0c9a59
 
 [<assembly: AssemblyProduct ("CsTasks")>]
 
-[<assembly: AssemblyCopyright ("Copyright Shape Factory Limited 2012")>]
+[<assembly: AssemblyCopyright ("Copyright Shape Factory Limited 2013")>]
 
-[<assembly: AssemblyVersion ("0.1.6")>]
+[<assembly: AssemblyVersion ("0.1.7")>]
 
-[<assembly: AssemblyFileVersion ("0.1.6")>]
+[<assembly: AssemblyFileVersion ("0.1.7")>]
 
 [<assembly: AssemblyDelaySign (false)>]
 

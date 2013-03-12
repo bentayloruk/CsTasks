@@ -103,6 +103,10 @@ None.  [Raise one](https://github.com/enticify/CsTasks/issues).
 
 ## Release Notes
 
+### 0.1.7
+
+* New: DeleteAllPromoCodeDefinitions added to MarketingDataStore.
+
 ### 0.1.6
 
 * Removed CTP extension.  No longer a PRE package.
