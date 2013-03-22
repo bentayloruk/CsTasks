@@ -103,6 +103,11 @@ None.  [Raise one](https://github.com/enticify/CsTasks/issues).
 
 ## Release Notes
 
+### 0.3.0
+
+* Add support for i_SearchResultsLimit so that ALL campaign items are deleted, even when paged.
+* Addition of very basic test discount generator (used for volume testing).
+
 ### 0.1.7
 
 * New: DeleteAllPromoCodeDefinitions added to MarketingDataStore.
