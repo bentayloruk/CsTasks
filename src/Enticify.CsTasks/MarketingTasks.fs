@@ -24,6 +24,11 @@ module CsTasks.Marketing
             let mr = siteResCollection.Item("Marketing")
             StripProvider (mr.["connstr_db_marketing"].ToString())
 
+        let searchLimit =
+            let siteResCollection = CommerceResourceCollection(siteName)
+            let mr = siteResCollection.Item("Marketing")
+            System.Convert.ToInt32(mr.["i_SearchResultsLimit"])
+
         let ReSeed tableName seed =
             trace (sprintf "Before seed %s" tableName)
             let sql = new SqlHelper (connectionString)
@@ -34,18 +39,29 @@ module CsTasks.Marketing
 
         let DeleteItems description (searcher:(SearchOptions->DataSet)) deleter = 
             trace (sprintf "Before delete %s." description)
-            let itemIds = 
-                let so = SearchOptions(PropertiesToReturn = "Id", StartRecord = 1, NumberOfRecordsToReturn = 500)
-                let dataSet = searcher so
-                let table = dataSet.Tables.["SearchResults"];
-                table.AsEnumerable()
-                |> Seq.map (fun row -> row.["Id"] :?> int)
-            for id in itemIds do
+            
+            let mutable go = true
+            while go do
                 try
-                    trace (sprintf "Deleting %s %s" description (id.ToString()))
-                    deleter(id)
+                    let itemIds = 
+                        let so = SearchOptions(PropertiesToReturn = "Id", StartRecord = 1, NumberOfRecordsToReturn = searchLimit)
+                        let dataSet = searcher so
+                        let table = dataSet.Tables.["SearchResults"];
+                        table.AsEnumerable()
+                        |> Seq.map (fun row -> row.["Id"] :?> int)
+                        |> List.ofSeq
+
+                    for id in itemIds do
+                        try
+                            trace (sprintf "Deleting %s %s" description (id.ToString()))
+                            deleter(id)
+                        with
+                        | ex -> trace (sprintf "Failed to delete %s with Id %s.  Exception: %s" description (id.ToString()) ex.Message)
+
+                    if itemIds.Length < searchLimit then go <- false
                 with
-                | ex -> trace (sprintf "Failed to delete %s with Id %s.  Exception: %s" description (id.ToString()) ex.Message)
+                | :? SearchPageNumberException as ex -> go <-false
+
             trace (sprintf "After delete %s." description)
 
         member x.DeleteAllExpressions() =
@@ -79,6 +95,17 @@ module CsTasks.Marketing
             let deleter id = mc.PromoCodeDefinitions.Delete(id)
             DeleteItems "PromoCodeDefinitions" searcher deleter
             ()
+
+        member x.MakeTestDiscounts(campaignId, count) =
+            for x = 0 to count do
+                let discount = mc.CampaignItems.NewDiscount(campaignId)
+                discount.Name <- System.Guid.NewGuid().ToString()
+                discount.TemplateName <- "No Display"
+                discount.SizeName <- "Full Banner"
+                discount.MultilingualBasketDisplay.Add(LanguageString("Hello", "en-US"))
+                discount.Save(true)
+                mc.CampaignItems.Activate(discount.Id, discount.LastModifiedDate)
+                if x % 100 = 0 then printfn "%i" x
 
         member x.DeleteAllDiscounts() = x.DeleteCampaignItems CampaignItemType.Discount
         member x.DeleteAllAds() = x.DeleteCampaignItems CampaignItemType.Advertisement
