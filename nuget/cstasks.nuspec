@@ -2,6 +2,8 @@
 <package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <description>@description@</description>
+    <title>CsTasks</title>
+    <copyright>Shape Factory Limited</copyright>
     <id>@project@</id>
     <version>@build.number@</version>
     <authors>@authors@</authors>
@@ -11,6 +13,6 @@
     <summary>@summary@</summary>
     <projectUrl>https://github.com/enticify/CsTasks</projectUrl>
     <licenseUrl>https://github.com/enticify/CsTasks/blob/master/LICENSE.md</licenseUrl>
-    <tags>commerceserver admin</tags>    
+    <tags>commerceserver sitecore microsoft</tags>    
   </metadata>
 </package>
