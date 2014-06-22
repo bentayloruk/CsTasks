@@ -1,102 +1,73 @@
-#I @"src\packages\FAKE.1.64.8\tools"
-//#I @"..\FAKE\tools\FAKE"
+#I @"src\packages\FAKE.2.18.2\tools"
 #r "FakeLib.dll"
 open Fake
 open System.IO
 open System
 
-let version = "0.3.0"
-let packageDesc = "Simple and time-saving Microsoft/Ascentium Commerce Server task automation library."
+let version = "0.4.0"
+let packageDesc = "Simple and time-saving Commerce Server task automation library (Microsoft & Sitecore)."
 let buildTypes = ["Debug";"Release"]
 let enticifyDependencies = []
-let buildVariations = [""] //No variation for CsTasks.
 let buildOutputPath = @".\build\output"
 let releaseOutputPath = @".\build\dist"
 let nugetOutputPath = @".\build\packages"
 let nugetToolsOutputPath = @".\build\packages\tools"
 let nugetSpecFilePath = @".\nuget\cstasks.nuspec"
 let buildDirs = [ releaseOutputPath; buildOutputPath; nugetOutputPath; nugetToolsOutputPath; ]
-let projFiles =
-    !+ @"src\**\*.fsproj"
-    -- @"src\**\*Tests.fsproj"
-    |> Scan
-
-//We assume build configuration name is %buildType%%vsVersion% (e.g. Debug2012)
-let buildConfigNames = 
-    [
-        for buildType in buildTypes do
-            for variation in buildVariations do
-                yield sprintf "%s%s" buildType variation 
-    ]
+let projFiles = !! @"src\**\*.fsproj" -- @"src\**\*Tests.fsproj"
 
 //Single run tasks.
 Target "Clean" (fun _ -> CleanDirs buildDirs)
 
-Run "Clean"
+Target "BuildMs" (fun _ ->
+    MSBuild buildOutputPath "Build" ["Configuration", "Release"]  !! @"src\Enticify.CsTasks\Enticify.CsTasks-MS.fsproj"
+    |> Log "BuildOutput:"
+)
 
-//Once per build configuration tasks.
-for buildConfigName in buildConfigNames do
-    let name taskName = taskName + buildConfigName
-    let assConfiguration = if buildConfigName.Contains("Debug") then "Debug" else "Release"
-    //Build
-    let buildTaskName = name "Build"
-    Target buildTaskName (fun _ ->
-        trace buildConfigName
-        MSBuild buildOutputPath "Build" ["Configuration", buildConfigName]  projFiles
-        |> Log "BuildOutput:"
-    )
+Target "BuildNonMs" (fun _ ->
+    MSBuild buildOutputPath "Build" ["Configuration", "Release"]  !! @"src\Enticify.CsTasks\Enticify.CsTasks.fsproj"
+    |> Log "BuildOutput:"
+)
 
-    let versionTaskName = name "SetVersion"
-    Target versionTaskName (fun _ ->
-        AssemblyInfo 
-            (fun p -> 
-            {p with
-                CodeLanguage = FSharp;
-                AssemblyVersion = version;
-                AssemblyTitle = "CsTasks";
-                AssemblyCopyright = "Copyright Shape Factory Limited " + DateTime.Now.Year.ToString();
-                AssemblyCompany = "Shape Factory Limited";
-                AssemblyDescription = "FAKE build tasks for Commerce Server" + buildConfigName + ").";
-                AssemblyProduct = "CsTasks";
-                AssemblyConfiguration = assConfiguration 
-                Guid = "D26579B2-8BE0-4BD4-AB87-985531440EE6";
-                OutputFileName = @".\src\Enticify.CsTasks\AssemblyInfo.fs"})
-    )
+Target "AssInfo" (fun _ ->
+    AssemblyInfo
+        (fun p -> 
+        {p with
+            CodeLanguage = FSharp;
+            AssemblyVersion = version;
+            AssemblyTitle = "CsTasks";
+            AssemblyCopyright = "Copyright Shape Factory Limited " + DateTime.Now.Year.ToString();
+            AssemblyCompany = "Shape Factory Limited";
+            AssemblyDescription = "Task automation library for Commerce Server.";
+            AssemblyProduct = "CsTasks";
+            AssemblyConfiguration = "Release";
+            Guid = "D26579B2-8BE0-4BD4-AB87-985531440EE6";
+            OutputFileName = @".\src\Enticify.CsTasks\AssemblyInfo.fs"})
+)
 
-
-    //Zip
-    let zipTaskName = name "Zip"
-    Target zipTaskName (fun _ ->
-        let zipFileName = Path.Combine(releaseOutputPath, "CsTasks-" + buildConfigName + "-" + version +  ".zip")
-        !+ (buildOutputPath + "\*.*") 
-            -- "*.zip" //TODO exclude XML docs too?
-            |> Scan
-            |> Zip buildOutputPath zipFileName 
-    )
-
-    //Do it!
-    versionTaskName 
-        ==> buildTaskName
-        ==> zipTaskName
-        |> ignore
-    Run zipTaskName 
-
+//Zip
+Target "Zip" (fun _ ->
+    let zipFileName = Path.Combine(releaseOutputPath, "CsTasks-" + version +  ".zip")
+    !! (buildOutputPath + "\*.*") 
+        -- "*.zip" //TODO exclude XML docs too?
+        |> Zip buildOutputPath zipFileName 
+)
 
 //Nuget
 Target "Nuget" (fun _ ->
     let nuspecFileName = @".\nuget\cstasks.nuspec"
-    XCopy @".\nuget\template\tools" (nugetOutputPath @@ "tools")
-    XCopy (buildOutputPath @@ "Enticify.CsTasks.dll") (nugetOutputPath @@ "tools")
-    XCopy (buildOutputPath @@ "Enticify.CsTasks.pdb") (nugetOutputPath @@ "tools")
-    //XCopy (buildOutputPath @@ "Enticify.CsTasks.pdb") (nugetOutputPath @@ "tools")
+    XCopy @".\nuget\template\tools" nugetToolsOutputPath 
+    Copy (nugetToolsOutputPath) [buildOutputPath @@ "Enticify.CsTasksMS.dll"]
+    Copy (nugetToolsOutputPath) [buildOutputPath @@ "Enticify.CsTasksMS.pdb"]
+    Copy (nugetToolsOutputPath) [buildOutputPath @@ "Enticify.CsTasks.dll"]
+    Copy (nugetToolsOutputPath) [buildOutputPath @@ "Enticify.CsTasks.pdb"]
     NuGet (fun p -> 
-        //System.Diagnostics.Debugger.Break()
         {p with               
+            WorkingDir = nugetOutputPath
             ToolPath = @".\src\.nuget\nuget.exe"
             Authors = ["enticify"; "bentayloruk";]
             Project = "CsTasks"
             Version = version
-            //ProjectFile = @".\src\Enticify.CsTasks\Enticify.CsTasks.fsproj"
             Dependencies = enticifyDependencies 
             Description = packageDesc 
             OutputPath = nugetOutputPath
@@ -104,4 +75,13 @@ Target "Nuget" (fun _ ->
             Publish = false }) nuspecFileName
 )
 
-Run "Nuget"
+"Clean"
+    ==> "AssInfo"
+    ==> "BuildMs"
+    ==> "BuildNonMs"
+    ==> "Zip"
+    ==> "Nuget"
+
+Run "Nuget" 
+
+

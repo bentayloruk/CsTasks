@@ -1,7 +1,12 @@
 ﻿[<AutoOpen>]
 module CsTasks.PurgeCommerceDataTasks
+#if MS
     open Microsoft.CommerceServer.Marketing
     open Microsoft.CommerceServer
+#else
+    open CommerceServer.Core.Marketing
+    open CommerceServer.Core
+#endif
     open System.Data
     open System
     open System.Diagnostics

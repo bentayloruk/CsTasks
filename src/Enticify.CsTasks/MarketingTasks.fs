@@ -1,8 +1,14 @@
 ﻿[<AutoOpen>]
 module CsTasks.Marketing
+#if MS
     open Microsoft.CommerceServer.Marketing
     open Microsoft.CommerceServer
     open Microsoft.CommerceServer.Runtime.Configuration
+#else
+    open CommerceServer.Core.Marketing
+    open CommerceServer.Core
+    open CommerceServer.Core.Runtime.Configuration
+#endif
     open System.Data
     open System.Diagnostics
     open CsTasks.Sql 

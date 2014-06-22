@@ -20,7 +20,7 @@ exception ReturnNoneException183c26a427ae489c8fd92ec21a0c9a59
 
 [<assembly: AssemblyTitle ("CsTasks")>]
 
-[<assembly: AssemblyDescription ("FAKE build tasks for Commerce ServerRelease).")>]
+[<assembly: AssemblyDescription ("Task automation library for Commerce Server.")>]
 
 [<assembly: AssemblyConfiguration ("Release")>]
 
@@ -28,11 +28,11 @@ exception ReturnNoneException183c26a427ae489c8fd92ec21a0c9a59
 
 [<assembly: AssemblyProduct ("CsTasks")>]
 
-[<assembly: AssemblyCopyright ("Copyright Shape Factory Limited 2013")>]
+[<assembly: AssemblyCopyright ("Copyright Shape Factory Limited 2014")>]
 
-[<assembly: AssemblyVersion ("0.3.0")>]
+[<assembly: AssemblyVersion ("0.4.0")>]
 
-[<assembly: AssemblyFileVersion ("0.3.0")>]
+[<assembly: AssemblyFileVersion ("0.4.0")>]
 
 [<assembly: AssemblyDelaySign (false)>]
 
