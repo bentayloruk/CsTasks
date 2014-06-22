@@ -2,8 +2,6 @@
 
 Simple and time-saving Commerce Server task automation library.  Do things like deleting, purging and importing promotions.  CsTasks provides a consistent .NET API around existing tools and APIs.  
 
-*Important:  This project is in the early CTP phase.  Use it at your own risk.*
-
 ## Aims
 
 * Collect useful Commerce Server tools in a single Nuget package (licenses permitting).
@@ -78,7 +76,7 @@ ImportDiscounts (fun defaultArgs -> { defaultArgs with DiscountImportArgs.Market
 
 ## Pre-Requisites
 
-* Microsoft Commerce Server 2007 or Microsoft/Ascentium Commerce Server 2009.
+* Commerce Server.  Version 2007 or greater.
 
 ## Installation
 
@@ -86,12 +84,6 @@ To install [CsTasks from Nuget.org](https://nuget.org/packages/CsTasks/) run the
 
 `PM> install-package CsTasks`
  
-## Documentation
-
-CsTasks is written in F# and we use it from `.fsx` build scripts.  However, it is a normal .NET assembly so you can use it from any .NET language.
-
-*More documentation to come.  We are in pre-release mode so you'll have to find your own way.*
-
 ## Additional Information
 
 CsTasks uses the following tools and APIs.  
@@ -99,11 +91,18 @@ CsTasks uses the following tools and APIs.
 * [Export/Import Discounts Tool](http://archive.msdn.microsoft.com/ExportImportDiscount).  Included in the CsTasks package tools folder.  No installation required.
 * [PurgeCommerceData](http://msdn.microsoft.com/en-us/library/cc515165.aspx#PurgeCommerceData).  Part of the Commerce Server installation.
 
+CsTasks is written in F# and we use it from `.fsx` build scripts.  However, it is a normal .NET assembly so you can use it from any .NET language.
+
 ## Known Issues
 
 None.  [Raise one](https://github.com/enticify/CsTasks/issues).
 
 ## Release Notes
+
+### 0.4.0
+
+* Support for CS10+.
+* Generate two lib assemblies.  `CsTasks.dll` for CS10+ and `CsTasksMS.dll` for CS2007 and CS2009.
 
 ### 0.3.0
 
