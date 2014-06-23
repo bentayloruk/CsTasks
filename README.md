@@ -99,7 +99,7 @@ None.  [Raise one](https://github.com/enticify/CsTasks/issues).
 
 ## Release Notes
 
-### 0.4.1
+### 0.4.2
 
 * More bug fixes for CS10 support :).  Code and schema namespace changes are a pain in the butt!
 
