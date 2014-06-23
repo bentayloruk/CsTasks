@@ -4,7 +4,7 @@ open Fake
 open System.IO
 open System
 
-let version = "0.4.0"
+let version = "0.4.1"
 let packageDesc = "Simple and time-saving Commerce Server task automation library (Microsoft & Sitecore)."
 let buildTypes = ["Debug";"Release"]
 let enticifyDependencies = []

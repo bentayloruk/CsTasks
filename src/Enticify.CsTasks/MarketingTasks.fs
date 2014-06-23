@@ -115,8 +115,19 @@ module CsTasks.Marketing
 
         member x.DeleteAllDiscounts() = x.DeleteCampaignItems CampaignItemType.Discount
         member x.DeleteAllAds() = x.DeleteCampaignItems CampaignItemType.Advertisement
-        member x.DeleteAllDirectMail() = x.DeleteCampaignItems CampaignItemType.DirectMail
-        member x.DeleteAllCampaignItems() = x.DeleteAllAds(); x.DeleteAllDirectMail(); x.DeleteAllDiscounts();
+        ///Delete direct mail.  Does nothing for CS versions with deprecated direct mail.
+        member x.DeleteAllDirectMail() =
+            #if MS
+            x.DeleteCampaignItems CampaignItemType.DirectMail
+            #else
+            ()
+            #endif
+        member x.DeleteAllCampaignItems() =
+            x.DeleteAllAds()
+            #if MS
+            x.DeleteAllDirectMail()
+            #endif
+            x.DeleteAllDiscounts()
         member x.ReseedCampaignIds seed = ReSeed "mktg_campaign" seed
         member x.ReseedCampaignItemIds seed = ReSeed "mktg_campaign_item" seed
         member x.ReseedExpressionIds seed = ReSeed "mktg_expression" seed
