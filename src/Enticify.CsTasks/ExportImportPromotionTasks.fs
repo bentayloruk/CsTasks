@@ -12,7 +12,11 @@ module CsTasks.ExportImportPromotionTasks
     open System.IO
     open System.Diagnostics
 
+#if MS
+    let exportImportToolPath = CsTasksToolPathFromFileName "ExportImportPromotion-MS.exe" 
+#else
     let exportImportToolPath = CsTasksToolPathFromFileName "ExportImportPromotion.exe" 
+#endif
     let CurrentDirectory () = Directory.GetCurrentDirectory()
 
     type DiscountExportArgs =
