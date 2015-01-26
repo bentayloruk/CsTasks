@@ -5,11 +5,11 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3f8ab25d-ad43-4d8c-aa8e-cb98196d879f}</ProjectGuid>
+    <ProjectGuid>{5311dc3c-2ce1-4f3c-83d1-4b21619c6ed0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Enticify.CsTasks</RootNamespace>
     <AssemblyName>Enticify.CsTasks</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <Name>Enticify.CsTasks</Name>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -20,19 +20,19 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <Tailcalls>false</Tailcalls>
-    <OutputPath>bin\Debug-NonMS\</OutputPath>
+    <OutputPath>bin\Debug-Sitecore11.2\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug-NonMS\Enticify.CsTasks.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Enticify.CsTasks.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <Tailcalls>true</Tailcalls>
-    <OutputPath>bin\Release-NonMS\</OutputPath>
+    <OutputPath>bin\Release-Sitecore11.2\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release-NonMS\Enticify.CsTasks.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Enticify.CsTasks.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
@@ -63,13 +63,16 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CommerceServer.Core.CrossTier">
-      <HintPath>..\packages.cs\cs10\CommerceServer.Core.CrossTier.dll</HintPath>
+      <HintPath>..\packages.cs\cs11.2\CommerceServer.Core.CrossTier.dll</HintPath>
     </Reference>
     <Reference Include="CommerceServer.Core.Marketing.CrossTier">
-      <HintPath>..\packages.cs\cs10\CommerceServer.Core.Marketing.CrossTier.dll</HintPath>
+      <HintPath>..\packages.cs\cs11.2\CommerceServer.Core.Marketing.CrossTier.dll</HintPath>
     </Reference>
     <Reference Include="CommerceServer.Core.Shared">
-      <HintPath>..\packages.cs\cs10\CommerceServer.Core.Shared.dll</HintPath>
+      <HintPath>..\packages.cs\cs11.2\CommerceServer.Core.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>False</Private>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
