@@ -30,9 +30,9 @@ exception ReturnNoneException183c26a427ae489c8fd92ec21a0c9a59
 
 [<assembly: AssemblyCopyright ("Copyright Shape Factory Limited 2015")>]
 
-[<assembly: AssemblyVersion ("0.4.2")>]
+[<assembly: AssemblyVersion ("0.5.0")>]
 
-[<assembly: AssemblyFileVersion ("0.4.2")>]
+[<assembly: AssemblyFileVersion ("0.5.0")>]
 
 [<assembly: AssemblyDelaySign (false)>]
 
