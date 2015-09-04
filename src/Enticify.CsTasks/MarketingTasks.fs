@@ -30,7 +30,7 @@ module CsTasks.Marketing
             let mr = siteResCollection.Item("Marketing")
             StripProvider (mr.["connstr_db_marketing"].ToString())
 
-        let searchLimit =
+        let resultPageSize =
             let siteResCollection = CommerceResourceCollection(siteName)
             let mr = siteResCollection.Item("Marketing")
             System.Convert.ToInt32(mr.["i_SearchResultsLimit"])
@@ -43,31 +43,35 @@ module CsTasks.Marketing
             trace (sprintf "After seed %s" tableName)
             ()
 
+        let rec searchCampaignItemIdsAndModified (searcher : SearchOptions -> DataSet) resultPageSize startIndex = seq {
+            let so = SearchOptions(PropertiesToReturn = "LastModifiedDate, Id", StartRecord = startIndex, NumberOfRecordsToReturn = resultPageSize)
+            let maybeResults = 
+                try
+                    let dataSet = searcher so
+                    Some dataSet
+                with | :? SearchPageNumberException as ex -> None
+            match maybeResults with
+            | Some dataSet -> let table = dataSet.Tables.["SearchResults"]
+//                              for x in table.Columns do
+//                                printfn "%s" x.ColumnName
+                              let idLastModifiedPairs = table.AsEnumerable() |> Seq.map (fun row -> row.["Id"] :?> int, row.["LastModifiedDate"] :?> System.DateTime)
+                              yield! idLastModifiedPairs
+                              if table.Rows.Count < resultPageSize then
+                                  yield! searchCampaignItemIdsAndModified searcher resultPageSize (startIndex + resultPageSize) 
+                              else ()
+            | None -> ()
+        }
+
+        let searchCampaignItemIds (searcher : SearchOptions -> DataSet) resultPageSize startIndex = 
+            searchCampaignItemIdsAndModified searcher resultPageSize startIndex |> Seq.map fst
+
         let DeleteItems description (searcher:(SearchOptions->DataSet)) deleter = 
             trace (sprintf "Before delete %s." description)
-            
-            let mutable go = true
-            while go do
-                try
-                    let itemIds = 
-                        let so = SearchOptions(PropertiesToReturn = "Id", StartRecord = 1, NumberOfRecordsToReturn = searchLimit)
-                        let dataSet = searcher so
-                        let table = dataSet.Tables.["SearchResults"];
-                        table.AsEnumerable()
-                        |> Seq.map (fun row -> row.["Id"] :?> int)
-                        |> List.ofSeq
-
-                    for id in itemIds do
-                        try
-                            trace (sprintf "Deleting %s %s" description (id.ToString()))
-                            deleter(id)
-                        with
-                        | ex -> trace (sprintf "Failed to delete %s with Id %s.  Exception: %s" description (id.ToString()) ex.Message)
-
-                    if itemIds.Length < searchLimit then go <- false
-                with
-                | :? SearchPageNumberException as ex -> go <-false
-
+            let ids = searchCampaignItemIds searcher resultPageSize 1
+            for id in ids do
+                trace (sprintf "Deleting %s %s" description (id.ToString()))
+                try deleter(id)
+                with | ex -> trace (sprintf "Failed to delete %s with Id %s.  Exception: %s" description (id.ToString()) ex.Message)
             trace (sprintf "After delete %s." description)
 
         member x.DeleteAllExpressions() =
@@ -80,7 +84,7 @@ module CsTasks.Marketing
             let deleter id = mc.Expressions.Delete(id)
             DeleteItems description searcher deleter 
             ()
-
+            
         member x.DeleteCampaignItems (ciType:CampaignItemType) = 
             let description = ciType.ToString() 
             let searcher (so:SearchOptions) = 
@@ -131,6 +135,20 @@ module CsTasks.Marketing
         member x.ReseedCampaignIds seed = ReSeed "mktg_campaign" seed
         member x.ReseedCampaignItemIds seed = ReSeed "mktg_campaign_item" seed
         member x.ReseedExpressionIds seed = ReSeed "mktg_expression" seed
+
+        member x.EnableAll (ciType:CampaignItemType) = 
+            let searcher (so:SearchOptions) = 
+                let clause = 
+                    let scf = mc.CampaignItems.GetSearchClauseFactory(ciType);
+                    scf.CreateClause()
+                mc.CampaignItems.Search(clause, so)
+            for id, lastMod in (searchCampaignItemIdsAndModified searcher resultPageSize 1) do
+                try mc.CampaignItems.Activate(id, lastMod)
+                with | ex -> printfn "Error activating ID %i: %s" id ex.Message
+
+        member x.EnableAllDiscounts () = 
+            x.EnableAll (CampaignItemType.Discount)
+            
 
         //Deletes all campaign items, then the campaigns.
         //REMOVED until we can backup and restore these.
