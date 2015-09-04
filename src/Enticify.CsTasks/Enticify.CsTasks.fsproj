@@ -63,13 +63,13 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CommerceServer.Core.CrossTier">
-      <HintPath>..\packages.cs\cs10\CommerceServer.Core.CrossTier.dll</HintPath>
+      <HintPath>..\..\..\..\Users\Ben Taylor\Dropbox\@cs-assemblies\CS10\CommerceServer.Core.CrossTier.dll</HintPath>
     </Reference>
     <Reference Include="CommerceServer.Core.Marketing.CrossTier">
-      <HintPath>..\packages.cs\cs10\CommerceServer.Core.Marketing.CrossTier.dll</HintPath>
+      <HintPath>..\..\..\..\Users\Ben Taylor\Dropbox\@cs-assemblies\CS10\CommerceServer.Core.Marketing.CrossTier.dll</HintPath>
     </Reference>
     <Reference Include="CommerceServer.Core.Shared">
-      <HintPath>..\packages.cs\cs10\CommerceServer.Core.Shared.dll</HintPath>
+      <HintPath>..\..\..\..\Users\Ben Taylor\Dropbox\@cs-assemblies\CS10\CommerceServer.Core.Shared.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />

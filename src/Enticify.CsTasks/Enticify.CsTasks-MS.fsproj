@@ -66,13 +66,13 @@
       <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\FSharp\2.0\Runtime\v2.0\FSharp.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CommerceServer.CrossTierTypes">
-      <HintPath>..\packages.cs\cs2007\Microsoft.CommerceServer.CrossTierTypes.dll</HintPath>
+      <HintPath>..\..\..\..\Users\Ben Taylor\Dropbox\@cs-assemblies\CS2007\Microsoft.CommerceServer.CrossTierTypes.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CommerceServer.Marketing.CrossTierTypes">
-      <HintPath>..\packages.cs\cs2007\Microsoft.CommerceServer.Marketing.CrossTierTypes.dll</HintPath>
+      <HintPath>..\..\..\..\Users\Ben Taylor\Dropbox\@cs-assemblies\CS2007\Microsoft.CommerceServer.Marketing.CrossTierTypes.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CommerceServer.Shared">
-      <HintPath>..\packages.cs\cs2007\Microsoft.CommerceServer.Shared.dll</HintPath>
+      <HintPath>..\..\..\..\Users\Ben Taylor\Dropbox\@cs-assemblies\CS2007\Microsoft.CommerceServer.Shared.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />

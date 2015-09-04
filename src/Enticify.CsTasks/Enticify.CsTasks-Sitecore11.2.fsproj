@@ -63,13 +63,13 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CommerceServer.Core.CrossTier">
-      <HintPath>..\packages.cs\cs11.2\CommerceServer.Core.CrossTier.dll</HintPath>
+      <HintPath>..\..\..\..\Users\Ben Taylor\Dropbox\@cs-assemblies\CS11\CommerceServer.Core.CrossTier.dll</HintPath>
     </Reference>
     <Reference Include="CommerceServer.Core.Marketing.CrossTier">
-      <HintPath>..\packages.cs\cs11.2\CommerceServer.Core.Marketing.CrossTier.dll</HintPath>
+      <HintPath>..\..\..\..\Users\Ben Taylor\Dropbox\@cs-assemblies\CS11\CommerceServer.Core.Marketing.CrossTier.dll</HintPath>
     </Reference>
     <Reference Include="CommerceServer.Core.Shared">
-      <HintPath>..\packages.cs\cs11.2\CommerceServer.Core.Shared.dll</HintPath>
+      <HintPath>..\..\..\..\Users\Ben Taylor\Dropbox\@cs-assemblies\CS11\CommerceServer.Core.Shared.dll</HintPath>
     </Reference>
     <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>False</Private>
